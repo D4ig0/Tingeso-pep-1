@@ -1,4 +1,6 @@
 package com.example.milkstgo.controllers;
 
-public class UsuarioController {
+public class ProveedorController
+{
+
 }
