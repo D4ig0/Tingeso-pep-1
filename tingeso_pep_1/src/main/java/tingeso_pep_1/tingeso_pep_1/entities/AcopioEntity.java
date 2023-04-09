@@ -1,15 +1,15 @@
 package tingeso_pep_1.tingeso_pep_1.entities;
 
-import com.sun.istack.NotNull;
+
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
+import org.jetbrains.annotations.NotNull;
 
 @Entity
 @Table(name = "data")
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 @Data
 public class AcopioEntity{

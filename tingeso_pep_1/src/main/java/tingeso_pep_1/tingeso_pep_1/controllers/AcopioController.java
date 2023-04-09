@@ -32,12 +32,5 @@ public class AcopioController {
         redirectAttributes.addFlashAttribute("mensaje", "¡Archivo cargado correctamente!");
         subirData.leerCsv("Acopio.csv");
         return "redirect:/fileUpload";
-    }
+    }}
 
-    @GetMapping("/fileInformation")
-    public String listar(Model model) {
-        ArrayList<SubirDataEntity> datas = subirData.obtenerData();
-        model.addAttribute("datas", datas);
-        return "fileInformation";
-    }
-}

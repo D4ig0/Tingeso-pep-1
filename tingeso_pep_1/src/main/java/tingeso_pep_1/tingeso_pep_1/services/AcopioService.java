@@ -2,6 +2,7 @@ package tingeso_pep_1.tingeso_pep_1.services;
 
 
         import tingeso_pep_1.tingeso_pep_1.repositories.AcopioRepository;
+        import tingeso_pep_1.tingeso_pep_1.entities.AcopioEntity;
         import lombok.Generated;
         import org.slf4j.Logger;
         import org.slf4j.LoggerFactory;
@@ -24,9 +25,9 @@ public class AcopioService {
     @Autowired
     private AcopioRepository dataRepository;
 
-    private final Logger logg = LoggerFactory.getLogger(SubirDataService.class);
+    private final Logger logg = LoggerFactory.getLogger(AcopioService.class);
 
-    public ArrayList<SubirDataEntity> obtenerData(){
+    public ArrayList<AcopioEntity> obtenerData(){
         return (ArrayList<AcopioEntity>) dataRepository.findAll();
     }
 
@@ -86,20 +87,20 @@ public class AcopioService {
         }
     }
 
-    public void guardarData(SubirDataEntity data){
+    public void guardarData(AcopioEntity data){
         dataRepository.save(data);
     }
 
 
     public void guardarDataDB(String fecha, String turno, String proveedor, String kls_leche){
-        SubirDataEntity newData = new SubirDataEntity();
+        AcopioEntity newData = new AcopioEntity();
         newData.setFecha(fecha);
         newData.setTurno(turno);
         newData.setProveedor(proveedor);
         newData.setKls_leche(kls_leche);
         guardarData(newData);
     }
-    public void eliminarData(ArrayList<SubirDataEntity> datas){
+    public void eliminarData(ArrayList<AcopioEntity> datas){
         dataRepository.deleteAll(datas);
     }
 }

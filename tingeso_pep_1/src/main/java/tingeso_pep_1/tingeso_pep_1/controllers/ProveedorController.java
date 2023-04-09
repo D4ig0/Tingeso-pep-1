@@ -1,7 +1,7 @@
 package tingeso_pep_1.tingeso_pep_1.controllers;
 
 import tingeso_pep_1.tingeso_pep_1.entities.ProveedorEntity;
-import tingeso_pep_1.tingeso_pep_1.ProveedorService;
+import tingeso_pep_1.tingeso_pep_1.services.ProveedorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
