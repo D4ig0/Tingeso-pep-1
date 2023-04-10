@@ -22,14 +22,17 @@ public class ProveedorService {
         proveedorRepository.save(proveedor);
     }
     public ArrayList<ProveedorEntity> obtenerProveedores(){
-        return (ArrayList<ProveedorEntity>) proveedorRepository.findAll();
-    }
+        return (ArrayList<ProveedorEntity>) proveedorRepository.findAll();}
 
     public String obtenerCategoria(String codigo){
         return proveedorRepository.findCategory(codigo);
     }
 
     public ProveedorEntity findByCodigo(String codigo){
+        String gato = proveedorRepository.findById(3);
         return proveedorRepository.findByCodigo(codigo);
     }
+
+
 }
+

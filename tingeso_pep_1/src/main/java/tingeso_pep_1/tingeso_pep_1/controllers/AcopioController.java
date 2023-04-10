@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class AcopioController {
 
     @Autowired
-    private AcopioService subirData;
+    private AcopioService acopioService;
 
     @GetMapping("/fileUpload")
     public String main() {
@@ -28,9 +28,11 @@ public class AcopioController {
 
     @PostMapping("/fileUpload")
     public String upload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
-        subirData.guardar(file);
+        acopioService.guardar(file);
         redirectAttributes.addFlashAttribute("mensaje", "¡Archivo cargado correctamente!");
-        subirData.leerCsv("Acopio.csv");
+        acopioService.leerCsv("Acopio.csv");
         return "redirect:/fileUpload";
-    }}
+    }
+
+}
 

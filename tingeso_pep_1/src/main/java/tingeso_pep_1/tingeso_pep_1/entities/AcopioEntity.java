@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 @Entity
-@Table(name = "data")
+@Table(name = "acopiodata")
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 @Data
