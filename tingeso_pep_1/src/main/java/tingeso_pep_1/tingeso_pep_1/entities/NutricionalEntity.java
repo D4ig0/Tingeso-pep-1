@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 
 @Entity
 @Table(name = "nutricionaldata")
@@ -16,8 +18,15 @@ public class NutricionalEntity {
         @Id
         @NotNull
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Integer ID;
-        private String Proveedor;
-        private Integer Grasa;
-        private Integer Solido;
+        @Column(unique = true, nullable = false)
+
+        private Integer id_nutricional;
+        private Integer id_proveedor;
+        private String proveedor;
+        private Integer grasa;
+        private Integer solido;
+
+        @OneToOne(mappedBy = "nutricional")
+        private PagoEntity pagoEntity;
+
 }

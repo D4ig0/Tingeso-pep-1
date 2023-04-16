@@ -16,4 +16,9 @@ public interface NutricionalRepository extends JpaRepository<NutricionalEntity, 
 
     void deleteAll();
 
+
+    @Query("select a from  NutricionalEntity  a   where a.id_nutricional=: proveedor. ")
+    String obtener
+
+
 }

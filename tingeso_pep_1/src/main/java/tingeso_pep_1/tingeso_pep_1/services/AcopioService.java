@@ -1,6 +1,7 @@
 package tingeso_pep_1.tingeso_pep_1.services;
 
 
+        import tingeso_pep_1.tingeso_pep_1.entities.ProveedorEntity;
         import tingeso_pep_1.tingeso_pep_1.repositories.AcopioRepository;
         import tingeso_pep_1.tingeso_pep_1.entities.AcopioEntity;
         import lombok.Generated;
@@ -18,17 +19,18 @@ package tingeso_pep_1.tingeso_pep_1.services;
         import java.nio.file.Path;
         import java.nio.file.Paths;
         import java.util.ArrayList;
+        import java.util.List;
 
 @Service
 public class AcopioService {
 
     @Autowired
-    private AcopioRepository dataRepository;
+    private AcopioRepository acopioRepository;
 
     private final Logger logg = LoggerFactory.getLogger(AcopioService.class);
 
     public ArrayList<AcopioEntity> obtenerData(){
-        return (ArrayList<AcopioEntity>) dataRepository.findAll();
+        return (ArrayList<AcopioEntity>) acopioRepository.findAll();
     }
 
     @Generated
@@ -57,7 +59,7 @@ public class AcopioService {
     public void leerCsv(String direccion){
         String texto = "";
         BufferedReader bf = null;
-        dataRepository.deleteAll();
+        acopioRepository.deleteAll();
         try{
             bf = new BufferedReader(new FileReader(direccion));
             String temp = "";
@@ -88,7 +90,7 @@ public class AcopioService {
     }
 
     public void guardarData(AcopioEntity data){
-        dataRepository.save(data);
+        acopioRepository.save(data);
     }
 
 
@@ -100,7 +102,16 @@ public class AcopioService {
         newData.setKls_leche(kls_leche);
         guardarData(newData);
     }
-    public void eliminarData(ArrayList<AcopioEntity> datas){
-        dataRepository.deleteAll(datas);
+    public void eliminarData(List<AcopioEntity> datas) {
+        acopioRepository.deleteAll(datas);
+    }
+
+    public  String findNombreProveedor(){
+        return acopioRepository.findName();
+    }
+
+    public List<AcopioEntity> findAcopiosProveedor(ProveedorEntity proveedor){
+        return acopioRepository.obtenerProveedor(proveedor.getNombre());
+
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping
@@ -21,7 +22,7 @@ public class ProveedorController {
 
     @GetMapping("/lista-proveedores")
     public String listar(Model model) {
-        ArrayList<ProveedorEntity> proveedores = proveedorService.obtenerProveedores();
+        List<ProveedorEntity> proveedores = proveedorService.obtenerProveedores();
         model.addAttribute("proveedores", proveedores);
         return "index";
     }
