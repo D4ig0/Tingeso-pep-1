@@ -106,12 +106,15 @@ public class AcopioService {
         acopioRepository.deleteAll(datas);
     }
 
-    public  String findNombreProveedor(){
-        return acopioRepository.findName();
+
+
+    @Deprecated
+    public  String findNombreProveedor(ProveedorEntity proveedor){
+        return acopioRepository.findName(proveedor.getId_proveedor());
     }
 
     public List<AcopioEntity> findAcopiosProveedor(ProveedorEntity proveedor){
-        return acopioRepository.obtenerProveedor(proveedor.getNombre());
+        return acopioRepository.obtenerAcopios(proveedor.getNombre());
 
     }
 }

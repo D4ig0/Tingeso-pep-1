@@ -22,11 +22,10 @@ public class NutricionalEntity {
 
         private Integer id_nutricional;
         private Integer id_proveedor;
-        private String proveedor;
+        private String  proveedor;
         private Integer grasa;
-        private Integer solido;
+        private Integer solidos_totales;
 
-        @OneToOne(mappedBy = "nutricional")
-        private PagoEntity pagoEntity;
+
 
 }

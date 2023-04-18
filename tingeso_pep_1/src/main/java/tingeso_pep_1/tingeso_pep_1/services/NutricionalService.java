@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import tingeso_pep_1.tingeso_pep_1.entities.AcopioEntity;
 import tingeso_pep_1.tingeso_pep_1.entities.NutricionalEntity;
+import tingeso_pep_1.tingeso_pep_1.entities.ProveedorEntity;
 import tingeso_pep_1.tingeso_pep_1.repositories.AcopioRepository;
 import tingeso_pep_1.tingeso_pep_1.repositories.NutricionalRepository;
 
@@ -18,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class NutricionalService {
@@ -97,11 +99,15 @@ public class NutricionalService {
             NutricionalEntity newData = new NutricionalEntity();
             newData.setProveedor(proveedor);
             newData.setGrasa(Integer.parseInt(grasa));
-            newData.setSolido(Integer.parseInt(solido));
+            newData.setSolidos_totales(Integer.parseInt(solido));
             guardarData(newData);
         }
-        public void eliminarData(ArrayList<NutricionalEntity> datas){
+        public void eliminarData(List<NutricionalEntity> datas){
             nutricionalRepository.deleteAll();
         }
+
+
+        public String  getProveedorAsociado(ProveedorEntity proveedor){
+            return nutricionalRepository.obtenerProveedor(proveedor.getId_proveedor());}
     }
 
