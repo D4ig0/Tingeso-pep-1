@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "pagodata")
+@Table(name = "pagos")
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 @Data
@@ -31,7 +31,9 @@ public class PagoEntity {
     private String codigo_proveedor;
     private String nombre_proveedor;
     private Double total_kls_leche;
+
     private Double nro_dias_leche;
+
     private Double grasa;
     private Double solidos_totales;
     private Double promedio_diario_leche;
@@ -42,6 +44,7 @@ public class PagoEntity {
     private Double dcto_variacion_leche;
     private Double dcto_variacion_grasa;
     private Double dcto_variacion_solidos_totales;
+
     private Double pago_total;
     private Double monto_retencion;
     private Double monto_final;

@@ -20,7 +20,7 @@ public class ProveedorController {
     @Autowired
     private ProveedorService proveedorService;
 
-    @GetMapping("/lista-proveedores")
+    @GetMapping("/vendorList")
     public String listar(Model model) {
         List<ProveedorEntity> proveedores = proveedorService.obtenerProveedores();
         model.addAttribute("proveedores", proveedores);

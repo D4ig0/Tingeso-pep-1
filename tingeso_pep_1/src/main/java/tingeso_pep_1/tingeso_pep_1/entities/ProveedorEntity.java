@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "proveedoresdata")
+@Table(name = "proveedores")
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 @Data
