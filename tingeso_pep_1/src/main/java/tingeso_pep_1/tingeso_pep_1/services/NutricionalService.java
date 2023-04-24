@@ -108,6 +108,6 @@ public class NutricionalService {
 
 
         public String  getProveedorAsociado(ProveedorEntity proveedor){
-            return nutricionalRepository.obtenerProveedor(proveedor.getId_proveedor());}
+            return nutricionalRepository.obtenerProveedor(proveedor.getCodigo());}
     }
 

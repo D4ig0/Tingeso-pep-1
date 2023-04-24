@@ -24,12 +24,12 @@ public class  PagoController {
     @Autowired
     private PagoService pagoService;
 
-    @GetMapping("/view_spreadsheet")
+    @GetMapping("/successful_spreadsheet")
     public String realizarCalculos(Model model)
 
-    {   boolean mensaje = pagoService.pagototal();
-        model.addAttribute("mensaje",mensaje);
-        return "view_spreadsheet";
+    {   boolean ejecucion = pagoService.pagototal();
+        model.addAttribute("ejecucion",ejecucion);
+        return "successful_spreadsheet";
     }
 
     @GetMapping("/view_spreadsheet")

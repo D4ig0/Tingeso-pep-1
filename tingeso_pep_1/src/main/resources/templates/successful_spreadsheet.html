@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<title>Agregar Proveedor</title>
+<link  rel="stylesheet"
+       href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+       integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+       crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<div class="container">
+    <br>
+    <v-if th:if="${ejecucion == true}">
+        <div class="alert alert-success" role="alert">
+           ¡Ha sido un Éxito!
+            Se ha obtenido la planilla de pagos para los proveedores
+        </div>
+    </v-if>
+    <v-else th:if="${ejecucion == false}">
+        <div class="alert alert-danger" role="alert">
+            ¡Ocurrió un error!
+            No se ha podido obtener la planilla de pagos para los proveedores
+        </div>
+    </v-else>
+</div>
+<br>
+<div class="d-flex justify-content-center">
+    <a href="/" class="btn btn-secondary" role="button">Ir a Inicio</a>
+</div>
+</body>
+
+</html>

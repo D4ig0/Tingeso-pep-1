@@ -23,7 +23,6 @@ public class ProveedorEntity {
     @Column(unique = true, nullable = false)
 
     private int id_proveedor;
-    private int id_nutricional;
     private String codigo;
     private String nombre;
     private String categoria;

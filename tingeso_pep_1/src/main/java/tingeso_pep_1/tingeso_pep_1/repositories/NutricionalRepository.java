@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import tingeso_pep_1.tingeso_pep_1.entities.AcopioEntity;
 import tingeso_pep_1.tingeso_pep_1.entities.NutricionalEntity;
+import tingeso_pep_1.tingeso_pep_1.entities.ProveedorEntity;
 
 import java.util.ArrayList;
 
@@ -16,14 +17,12 @@ public interface NutricionalRepository extends JpaRepository<NutricionalEntity, 
     ArrayList<NutricionalEntity> findAll();
 
 
-    @Query("select a.proveedor from  NutricionalEntity  a   where a.id_proveedor=: proveedor")
-    String obtenerProveedor(@Param("proveedor") Integer proveedor);
+    @Query("select a.proveedor from  NutricionalEntity  a   where a.proveedor=: proveedor")
+    String obtenerProveedor(@Param("proveedor") String proveedor);
 
-    @Query("select a.grasa from  NutricionalEntity  a   where a.id_proveedor=: proveedor")
-    Double obtenerGrasa(@Param("proveedor")  Integer proveedor);
+    @Query("select a.grasa from NutricionalEntity a where a.proveedor= :proveedor")
+    Double obtenerGrasa(@Param("proveedor") String proveedor);
 
-    @Query("select a.solidos_totales from  NutricionalEntity  a   where a.id_proveedor=: proveedor")
-    Double obtenerSolidos(@Param("proveedor")  Integer proveedor);
-
-
+    @Query("select a.solidos_totales from NutricionalEntity a where a.proveedor = :proveedor")
+    Double obtenerSolidos(@Param("proveedor") String proveedor);
 }

@@ -66,9 +66,10 @@ public class AcopioService {
             String bfRead;
             int count = 1;
             while((bfRead = bf.readLine()) != null){
+
                 if (count == 1){
-                    count = 0;
-                }
+                    count = 0;}
+
                 else{
                     guardarDataDB(bfRead.split(";")[0], bfRead.split(";")[1], bfRead.split(";")[2], bfRead.split(";")[3]);
                     temp = temp + "\n" + bfRead;
@@ -106,15 +107,7 @@ public class AcopioService {
         acopioRepository.deleteAll(datas);
     }
 
-
-
-    @Deprecated
-    public  String findNombreProveedor(ProveedorEntity proveedor){
-        return acopioRepository.findName(proveedor.getId_proveedor());
-    }
-
     public List<AcopioEntity> findAcopiosProveedor(ProveedorEntity proveedor){
         return acopioRepository.obtenerAcopios(proveedor.getNombre());
-
     }
 }

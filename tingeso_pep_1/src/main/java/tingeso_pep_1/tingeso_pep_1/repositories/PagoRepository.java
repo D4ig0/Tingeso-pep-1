@@ -13,11 +13,21 @@ import java.util.ArrayList;
 @Repository
 
 public interface PagoRepository extends JpaRepository<PagoEntity, Integer> {
-    @Query("SELECT p FROM PagoEntity p WHERE p.id_proveedor=: pago  ORDER BY p.id_pago DESC")
-    PagoEntity obtenerPagoActual(@Param("pago") int pago);
 
 
-    @Query("SELECT p FROM PagoEntity p WHERE p.id_proveedor = :idActual AND p.id_pago < :idActual ORDER BY p.id_pago DESC")
-    PagoEntity obtenerPagoAnterior(@Param("idActual") int idActual);
+    @Query("SELECT p FROM PagoEntity p WHERE p.codigo_proveedor = :codigo ORDER BY p.id_pago")
+    PagoEntity obtenerPagoActual(@Param("codigo") String codigo);
+
+    @Query("SELECT p FROM PagoEntity p WHERE p.id_pago < :codigo ORDER BY p.id_pago DESC")
+    PagoEntity obtenerPagoAnterior(@Param("codigo") int codigo);
+
+    @Query("SELECT COUNT(p) FROM PagoEntity p WHERE p.codigo_proveedor = :codigo")
+    Integer obtenerCantPagos(@Param("codigo") String codigo);
+
+
+    //PagoEntity getPagoEntityByCodigo_proveedor(String codigo);JPA PRO
+
+
 
 }
+

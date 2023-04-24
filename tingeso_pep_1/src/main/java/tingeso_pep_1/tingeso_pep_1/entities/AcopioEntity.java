@@ -20,7 +20,6 @@ public class AcopioEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Integer id_acopio;
-    private Integer id_proveedor;
     private String fecha;
     private String turno;
     private String proveedor;

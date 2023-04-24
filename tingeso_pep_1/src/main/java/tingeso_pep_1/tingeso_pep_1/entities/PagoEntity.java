@@ -17,11 +17,13 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class PagoEntity {
+
     @Id
     @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private int id_pago;
-    private int id_proveedor;
+
 
 
     private Double pago_leche;

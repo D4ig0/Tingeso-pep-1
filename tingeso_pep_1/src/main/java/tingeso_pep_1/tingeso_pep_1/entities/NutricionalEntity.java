@@ -19,9 +19,7 @@ public class NutricionalEntity {
         @NotNull
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(unique = true, nullable = false)
-
         private Integer id_nutricional;
-        private Integer id_proveedor;
         private String  proveedor;
         private Integer grasa;
         private Integer solidos_totales;
