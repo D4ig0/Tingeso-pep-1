@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -29,12 +30,12 @@ public class PagoEntity {
     private Double pago_leche;
     private Double pago_grasa;
     private Double pago_solido;
-    private Date quincena;
+    private LocalDate quincena;
     private String codigo_proveedor;
     private String nombre_proveedor;
     private Double total_kls_leche;
 
-    private Double nro_dias_leche;
+    private Integer nro_dias_leche;
 
     private Double grasa;
     private Double solidos_totales;

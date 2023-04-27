@@ -9,16 +9,17 @@ import tingeso_pep_1.tingeso_pep_1.entities.NutricionalEntity;
 import tingeso_pep_1.tingeso_pep_1.entities.PagoEntity;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 @Repository
 
 public interface PagoRepository extends JpaRepository<PagoEntity, Integer> {
 
 
-    @Query("SELECT p FROM PagoEntity p WHERE p.codigo_proveedor = :codigo ORDER BY p.id_pago")
+    @Query("SELECT p FROM PagoEntity p WHERE p.codigo_proveedor = :codigo AND p.id_pago = (SELECT MAX(p2.id_pago) FROM PagoEntity p2 WHERE p2.codigo_proveedor = :codigo)")
     PagoEntity obtenerPagoActual(@Param("codigo") String codigo);
 
-    @Query("SELECT p FROM PagoEntity p WHERE p.id_pago < :codigo ORDER BY p.id_pago DESC")
+    @Query("SELECT p FROM PagoEntity p WHERE p.id_pago < :codigo ORDER BY p.id_pago DESC LIMIT 1")
     PagoEntity obtenerPagoAnterior(@Param("codigo") int codigo);
 
     @Query("SELECT COUNT(p) FROM PagoEntity p WHERE p.codigo_proveedor = :codigo")

@@ -107,7 +107,5 @@ public class AcopioService {
         acopioRepository.deleteAll(datas);
     }
 
-    public List<AcopioEntity> findAcopiosProveedor(ProveedorEntity proveedor){
-        return acopioRepository.obtenerAcopios(proveedor.getNombre());
-    }
+
 }

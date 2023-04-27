@@ -111,25 +111,25 @@
     <a class="btn-2" href="/fileUpload"><button>Cargar un nuevo .CSV</button></a>
 </header>
 <div  class = "table-responsive">
-    <h1><b>Información de la planilla </b></h1>
+    <h1 style="text-align: center;"><b>Información de la planilla</b></h1>
     <table class="table table-dark table-striped">
         <thead>
         <tr>
-            <th style = "color:white">Quincena</th>
-            <th style = "color:white">Código proveedor</th>
-            <th style = "color:white">Nombre Proveedor</th>
-            <th style = "color:white">TOTAL KILOS Leche</th>
-            <th style = "color:white">Número días enviados de leche</th>
-            <th style = "color:white">Promedio diario kilos leche</th>
-            <th style = "color:white">%Variacion leche</th>
-            <th style = "color:white">%Grasa</th>
-            <th style = "color:white">%variacion grasa</th>
-            <th style = "color:white">%solidos totales</th>
-            <th style = "color:white">%variacion solidos totales</th>
-            <th style = "color:white">Pago por Leche</th>
-            <th style = "color:white">Pago por Grasa</th>
-            <th style = "color:white">Pago por Solidos Totales</th>
-            <th style = "color:white">Bonificacion por Frecuencia</th>
+            <th style = "color:white"> Quincena</th>
+            <th style = "color:white"> Código proveedor</th>
+            <th style = "color:white"> Nombre Proveedor</th>
+            <th style = "color:white"> TOTAL KILOS Leche</th>
+            <th style = "color:white"> Número días enviados de leche</th>
+            <th style = "color:white"> Promedio diario kilos leche</th>
+            <th style = "color:white"> % Variación leche</th>
+            <th style = "color:white"> % Grasa</th>
+            <th style = "color:white"> % Variación grasa</th>
+            <th style = "color:white"> % Solidos totales</th>
+            <th style = "color:white"> % Variación solidos totales</th>
+            <th style = "color:white"> Pago por Leche</th>
+            <th style = "color:white"> Pago por Grasa</th>
+            <th style = "color:white"> Pago por Solidos Totales</th>
+            <th style = "color:white"> Bonificación por Frecuencia</th>
             <th style = "color:white">Descuento Variación Leche</th>
             <th style = "color:white">Descuento Variación Grasa</th>
             <th style = "color:white">Descuento Variación Solidos Totales</th>
@@ -140,8 +140,27 @@
         </thead>
         <tbody>
         <tr th:each="pago:${pagos}">
-            <td th:text="${pago}"></td>
-
+            <td th:text="${pago.quincena}"></td>
+            <td th:text="${pago.codigo_proveedor}"></td>
+            <td th:text="${pago.nombre_proveedor}"></td>
+            <td th:text="${pago.total_kls_leche}"></td>
+            <td th:text="${pago.nro_dias_leche}"></td>
+            <td th:text="${pago.promedio_diario_leche}"></td>
+            <td th:text="${pago.variacion_leche}"></td>
+            <td th:text="${pago.grasa}"></td>
+            <td th:text="${pago.variacion_grasa}"></td>
+            <td th:text="${pago.solidos_totales}"></td>
+            <td th:text="${pago.variacion_solidos_totales}"></td>
+            <td th:text="${pago.pago_leche}"></td>
+            <td th:text="${pago.pago_grasa}"></td>
+            <td th:text="${pago.pago_solido}"></td>
+            <td th:text="${pago.frecuencia}"></td>
+            <td th:text="${pago.dcto_variacion_leche}"></td>
+            <td th:text="${pago.dcto_variacion_grasa}"></td>
+            <td th:text="${pago.dcto_variacion_solidos_totales}"></td>
+            <td th:text="${pago.pago_total}"></td>
+            <td th:text="${pago.monto_retencion}"></td>
+            <td th:text="${pago.monto_final}"></td>
         </tr>
         </tbody>
     </table>

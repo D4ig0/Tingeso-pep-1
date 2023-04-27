@@ -16,7 +16,6 @@ public interface NutricionalRepository extends JpaRepository<NutricionalEntity, 
     @Query("select a from NutricionalEntity a")
     ArrayList<NutricionalEntity> findAll();
 
-
     @Query("select a.proveedor from  NutricionalEntity  a   where a.proveedor=: proveedor")
     String obtenerProveedor(@Param("proveedor") String proveedor);
 

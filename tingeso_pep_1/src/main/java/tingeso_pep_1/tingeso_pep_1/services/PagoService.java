@@ -5,7 +5,8 @@ import org.springframework.stereotype.Service;
 
 import tingeso_pep_1.tingeso_pep_1.entities.*;
 import tingeso_pep_1.tingeso_pep_1.repositories.*;
-
+import java.time.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -86,11 +87,11 @@ public class PagoService {
         else  return 0.0 ;}
 
     public double retencion(Double monto){
-        double retenido=0;
-        if (monto>950000)
-        {return retenido = monto*0.13;}
 
-        else return retenido;
+        if (monto>950000)
+        {return monto*0.13;}
+
+        else return 0;
     }
 
     public Double variacionLeche(ProveedorEntity proveedor)
@@ -163,7 +164,6 @@ public class PagoService {
         PagoEntity actual;
 
         if (numero==1){
-
             actual= pagoRepository.obtenerPagoActual(proveedor.getCodigo());
             return  (0/ actual.getSolidos_totales())*100;
         }
@@ -171,10 +171,6 @@ public class PagoService {
             actual= pagoRepository.obtenerPagoActual(proveedor.getCodigo());
             anterior= pagoRepository.obtenerPagoAnterior(actual.getId_pago());
             return (anterior.getSolidos_totales()/ actual.getSolidos_totales())*100;}
-        
-        
-        
-        
     }
     public Double variacionNegativaST(Double variacion_st, Double monto)
     {
@@ -188,14 +184,21 @@ public class PagoService {
         {return 45.0*monto;}
         else return 0.0*monto;}
 
+    public Integer cantDiasEnviados(ProveedorEntity proveedor){
+        return acopioRepository.totalDiasEnviados(proveedor.getCodigo());
+    }
+
     public boolean pagototal()
     {   List<ProveedorEntity> proveedores= proveedorService.obtenerProveedores();
         for  (int i = 0; i<proveedores.size(); i++){
             ProveedorEntity proveedor = proveedores.get(i);
+            //VER SI LAS LISTAS DE ACOPIO SON DISTINTAS
             PagoEntity pago = iniciarpago(proveedor);
             pago.setPago_leche(pagoporleche(pago.getTotal_kls_leche(),proveedor.getCategoria()));
             pago.setPago_grasa(pagoporgrasa(pago.getTotal_kls_leche(),pago.getGrasa()));
             pago.setPago_solido(pagoporsolido(pago.getTotal_kls_leche(),pago.getSolidos_totales()));
+            pago.setNro_dias_leche(cantDiasEnviados(proveedor));
+            pago.setPromedio_diario_leche(pago.getTotal_kls_leche()/pago.getNro_dias_leche());
             pago.setFrecuencia(bonoFrecuencia(proveedor,pago.getTotal_kls_leche()));
             pago.setVariacion_grasa(variacionGrasa(proveedor));
             pago.setDcto_variacion_grasa(variacionNegativaGrasa(pago.getVariacion_grasa(),pago.getPago_leche()));
@@ -216,13 +219,16 @@ public class PagoService {
         PagoEntity pago = new PagoEntity();
         pago.setGrasa(nutricionalRepository.obtenerGrasa(proveedor.getCodigo()));
         pago.setSolidos_totales(nutricionalRepository.obtenerSolidos(proveedor.getCodigo()));
+        pago.setTotal_kls_leche(acopioRepository.totalLecheProveedor(proveedor.getCodigo()));
         pago.setCodigo_proveedor(proveedor.getCodigo());
         pago.setNombre_proveedor(proveedor.getNombre());
-        pago.setQuincena(new Date());
-        pago.setTotal_kls_leche(acopioRepository.totalLecheProveedor(proveedor.getCodigo()));
+        LocalDate fechaActual = LocalDate.now();
+        pago.setQuincena(fechaActual) ;
+        //COMPARAR ESTE PAGO CON EL ÚLTIMO EN LA BASE DE DATOS SI ES IGUAL, EN CASO DE QUE NO TIRE ERROR O ALGO ASI QUE NOTIFIQUE
         guardarData(pago);
         return  pago;
     }
+
     public void guardarData(PagoEntity data){
         pagoRepository.save(data);
     }

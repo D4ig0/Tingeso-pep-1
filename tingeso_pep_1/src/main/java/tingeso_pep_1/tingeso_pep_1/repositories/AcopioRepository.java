@@ -33,4 +33,8 @@ public interface AcopioRepository extends JpaRepository <AcopioEntity, Integer>{
     @Query("SELECT SUM(CAST(a.kls_leche AS double)) FROM AcopioEntity a WHERE a.proveedor = :proveedor")
     Double totalLecheProveedor(@Param("proveedor") String proveedor);
 
+    @Query("SELECT COUNT(DISTINCT (Date(a.fecha))) FROM AcopioEntity a WHERE a.proveedor = :proveedor")
+    Integer totalDiasEnviados(@Param("proveedor") String proveedor);
+
+
 }
