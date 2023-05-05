@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  postgres-db:
+      image: postgres
+      restart: always
+      volumes:
+        - ./pgdata:/var/lib/postgresql/data/
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: 1234
+        POSTGRES_DB: tingeso_pep1
+      ports:
+        - "5432:5432"
+  app:
+    container_name: tingeso_pep_1
+    image: d4ig0/tingeso_pep_1
+    ports:
+      - "8090:8090"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/tingeso_pep1?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1234
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - postgres-db

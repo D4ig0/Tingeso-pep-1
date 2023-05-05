@@ -1,0 +1,57 @@
+pipeline{
+    agent any
+    tools{
+        maven "maven"
+    }
+    stages{
+        stage("Build JAR File"){
+            steps{
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/D4ig0/Tingeso-pep-1']])
+                    bat "mvn clean install"
+                }
+            }
+        }
+        stage("Test"){
+            steps{
+                dir("tingeso_pep_1"){
+                    bat "mvn test"
+                }
+            }
+        }
+        stage("SonarQube Analysis"){
+            steps{
+                dir("tingeso_pep_1"){
+                    bat "mvn clean verify sonar:sonar -Dsonar.projectKey=pep-tingeso-1 -Dsonar.host.url=http://localhost:9000/ -Dsonar.login=sqp_ec5140d5a4652c274fb215cef0d0d5446ceb43ed"
+                }
+            }
+        }
+        stage("Build Docker Image"){
+            steps{
+                dir("tingeso_pep_1"){
+                    bat "docker build -t d4ig0/tingeso_pep_1 ."
+                }
+
+            }
+        }
+        stage("Push Docker Image"){
+            steps{
+                dir("tingeso_pep_1"){
+                   withCredentials([string(credentialsId: 'dckrhubpassword', variable: 'dckpass')]) {
+                        bat "docker login -u d4ig0 -p ${dckpass}"
+
+                    }
+                    bat "docker push d4ig0/tingeso_pep_1r"
+
+                }
+
+            }
+        }
+    }
+    post{
+        always{
+            dir("tingeso_pep_1"){
+                bat "docker logout"
+            }
+        }
+    }
+}

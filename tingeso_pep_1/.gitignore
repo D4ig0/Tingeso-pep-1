@@ -1,5 +1,7 @@
 HELP.md
 target/
+pgdata/
+sonarqube-9.9.0.65466/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
