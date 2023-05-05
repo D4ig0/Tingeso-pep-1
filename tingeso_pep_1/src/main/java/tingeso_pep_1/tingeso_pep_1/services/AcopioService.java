@@ -90,9 +90,7 @@ public class AcopioService {
         }
     }
 
-    public void guardarData(AcopioEntity data){
-        acopioRepository.save(data);
-    }
+
 
 
     public void guardarDataDB(String fecha, String turno, String proveedor, String kls_leche){
@@ -102,6 +100,12 @@ public class AcopioService {
         newData.setProveedor(proveedor);
         newData.setKls_leche(kls_leche);
         guardarData(newData);
+    }
+
+
+
+    public void guardarData(AcopioEntity data){
+        acopioRepository.save(data);
     }
     public void eliminarData(List<AcopioEntity> datas) {
         acopioRepository.deleteAll(datas);

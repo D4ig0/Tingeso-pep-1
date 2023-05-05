@@ -21,93 +21,91 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
-public class NutricionalService {
+    @Service
+    public class NutricionalService {
 
 
-        @Autowired
-        private NutricionalRepository nutricionalRepository;
+            @Autowired
+            private NutricionalRepository nutricionalRepository;
 
-        private final Logger logg = LoggerFactory.getLogger(tingeso_pep_1.tingeso_pep_1.services.NutricionalService.class);
+            private final Logger logg = LoggerFactory.getLogger(tingeso_pep_1.tingeso_pep_1.services.NutricionalService.class);
 
-        public ArrayList<NutricionalEntity> obtenerData(){
-            return (ArrayList<NutricionalEntity>) nutricionalRepository.findAll();
-        }
-
-        @Generated
-        public String guardar(MultipartFile file){
-            String filename = file.getOriginalFilename();
-            if(filename != null){
-                if(!file.isEmpty()){
-                    try{
-                        byte [] bytes = file.getBytes();
-                        Path path  = Paths.get(file.getOriginalFilename());
-                        Files.write(path, bytes);
-                        logg.info("Archivo guardado");
-                    }
-                    catch (IOException e){
-                        logg.error("ERROR", e);
-                    }
-                }
-                return "Archivo guardado con exito!";
+            public ArrayList<NutricionalEntity> obtenerData(){
+                return (ArrayList<NutricionalEntity>) nutricionalRepository.findAll();
             }
-            else{
-                return "No se pudo guardar el archivo";
-            }
-        }
 
-        @Generated
-        public void leerCsv(String direccion){
-            String texto = "";
-            BufferedReader bf = null;
-            nutricionalRepository.deleteAll();
-            try{
-                bf = new BufferedReader(new FileReader(direccion));
-                String temp = "";
-                String bfRead;
-                int count = 1;
-                while((bfRead = bf.readLine()) != null){
-                    if (count == 1){
-                        count = 0;
+            @Generated
+            public String guardar(MultipartFile file){
+                String filename = file.getOriginalFilename();
+                if(filename != null){
+                    if(!file.isEmpty()){
+                        try{
+                            byte [] bytes = file.getBytes();
+                            Path path  = Paths.get(file.getOriginalFilename());
+                            Files.write(path, bytes);
+                            logg.info("Archivo guardado");
+                        }
+                        catch (IOException e){
+                            logg.error("ERROR", e);
+                        }
                     }
-                    else{
-                        guardarDataDB(bfRead.split(";")[0], bfRead.split(";")[1], bfRead.split(";")[2]);
-                        temp = temp + "\n" + bfRead;
-                    }
+                    return "Archivo guardado con exito!";
                 }
-                texto = temp;
-                System.out.println("Archivo leido exitosamente");
-            }catch(Exception e){
-                System.err.println("No se encontro el archivo");
-            }finally{
-                if(bf != null){
-                    try{
-                        bf.close();
-                    }catch(IOException e){
-                        logg.error("ERROR", e);
-                    }
+                else{
+                    return "No se pudo guardar el archivo";
                 }
             }
-        }
 
-        public void guardarData(NutricionalEntity data){
+            @Generated
+            public void leerCsv(String direccion){
+                String texto = "";
+                BufferedReader bf = null;
+                nutricionalRepository.deleteAll();
+                try{
+                    bf = new BufferedReader(new FileReader(direccion));
+                    String temp = "";
+                    String bfRead;
+                    int count = 1;
+                    while((bfRead = bf.readLine()) != null){
+                        if (count == 1){
+                            count = 0;
+                        }
+                        else{
+                            guardarDataDB(bfRead.split(";")[0], bfRead.split(";")[1], bfRead.split(";")[2]);
+                            temp = temp + "\n" + bfRead;
+                        }
+                    }
+                    texto = temp;
+                    System.out.println("Archivo leido exitosamente");
+                }catch(Exception e){
+                    System.err.println("No se encontro el archivo");
+                }finally{
+                    if(bf != null){
+                        try{
+                            bf.close();
+                        }catch(IOException e){
+                            logg.error("ERROR", e);
+                        }
+                    }
+                }
+            }
+
+
+            public void guardarDataDB(String proveedor,String grasa, String  solido){
+                NutricionalEntity newData = new NutricionalEntity();
+                newData.setProveedor(proveedor);
+                newData.setGrasa(Integer.parseInt(grasa));
+                newData.setSolidos_totales(Integer.parseInt(solido));
+                guardarData(newData);
+            }
+
+            public void eliminarData(List<NutricionalEntity> datas){
+                nutricionalRepository.deleteAll();
+            }
+            public void guardarData(NutricionalEntity data){
             nutricionalRepository.save(data);
         }
 
 
-        public void guardarDataDB(String proveedor,String grasa, String  solido){
-            NutricionalEntity newData = new NutricionalEntity();
-            newData.setProveedor(proveedor);
-            newData.setGrasa(Integer.parseInt(grasa));
-            newData.setSolidos_totales(Integer.parseInt(solido));
-            guardarData(newData);
         }
-        public void eliminarData(List<NutricionalEntity> datas){
-            nutricionalRepository.deleteAll();
-        }
-
-
-        public String  getProveedorAsociado(ProveedorEntity proveedor){
-            return nutricionalRepository.obtenerProveedor(proveedor.getCodigo());}
-    }
 

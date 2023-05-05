@@ -21,6 +21,7 @@ public class ProveedorService {
         proveedor.setRetencion(retencion);
         proveedorRepository.save(proveedor);
     }
+
     public List<ProveedorEntity> obtenerProveedores(){
         return ( proveedorRepository.findAll());
     }

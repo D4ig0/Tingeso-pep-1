@@ -1,10 +1,12 @@
 package tingeso_pep_1.tingeso_pep_1.services;
 
+import lombok.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tingeso_pep_1.tingeso_pep_1.entities.*;
 import tingeso_pep_1.tingeso_pep_1.repositories.*;
+
 import java.time.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,7 +21,6 @@ public class PagoService {
     private static final Double bonificacion_MT = 20.0;
     private static final Double bonificacion_M = 12.0;
     private static final Double bonificacion_T = 8.0;
-
 
 
 
@@ -75,15 +76,16 @@ public class PagoService {
         else return  150 * total_kls;}
 
 
-    public Double bonoFrecuencia(ProveedorEntity proveedor,Double total_kls){
+    public Double bonoFrecuencia(ProveedorEntity proveedor,Double pagoLeche){
+
         Integer turno_m = acopioRepository.cantidadTurnoM(proveedor.getCodigo());
         Integer turno_t = acopioRepository.cantidadTurnoT(proveedor.getCodigo());
-        if (turno_t>10 && turno_t >10){
-            return bonificacion_MT * total_kls;}
+        if (turno_t>10 && turno_m >10){
+            return bonificacion_MT * pagoLeche;}
         else if (turno_m>10){
-            return bonificacion_M * total_kls;}
+            return bonificacion_M * pagoLeche;}
         else if (turno_t>10) {
-            return bonificacion_T * total_kls;}
+            return bonificacion_T * pagoLeche;}
         else  return 0.0 ;}
 
     public double retencion(Double monto){
@@ -96,30 +98,26 @@ public class PagoService {
 
     public Double variacionLeche(ProveedorEntity proveedor)
     {
-        
-        Integer numero= pagoRepository.obtenerCantPagos(proveedor.getCodigo());
-        PagoEntity anterior;
-        PagoEntity actual;
-        if (numero==1){
+       // Integer numero= pagoRepository.obtenerCantPagos(proveedor.getCodigo());
+        List<PagoEntity> anterior;
+        PagoEntity actual = pagoRepository.obtenerPagoActual(proveedor.getCodigo());
+        anterior= pagoRepository.obtenerPagoAnterior(proveedor.getCodigo(),actual.getId_pago());
+        if (anterior.size()==0){return 0.0;
 
-            actual= pagoRepository.obtenerPagoActual(proveedor.getCodigo());
-            return  (0/ actual.getTotal_kls_leche())*100;
-        }
-        else{
-            actual= pagoRepository.obtenerPagoActual(proveedor.getCodigo());
-            anterior= pagoRepository.obtenerPagoAnterior(actual.getId_pago());
-           return (anterior.getTotal_kls_leche()/ actual.getTotal_kls_leche())*100;}
+        } else {
+            return (((anterior.get(0).getTotal_kls_leche()- actual.getTotal_kls_leche())/anterior.get(0).getTotal_kls_leche()));
+        }}
 
-    }
+     //((Valor Inicial - Valor Final) / Valor Inicial) x 100
     public Double variacionNegativaLeche(Double variacion_leche, Double monto)
     {
-        if (variacion_leche<= 0  && variacion_leche<=8)
+        if (variacion_leche>= 0  && variacion_leche<=8)
         {return 0.0*monto;}
-        else if (variacion_leche<= 9  && variacion_leche<=25)
+        else if (variacion_leche>= 9  && variacion_leche<=25)
         {return 7.0*monto;}
-        else if (variacion_leche<= 26  && variacion_leche<=45)
+        else if (variacion_leche>= 26  && variacion_leche<=45)
         {return 15.0*monto;}
-        else if (variacion_leche<= 45 )
+        else if (variacion_leche>= 45 )
         {return 30.0*monto;}
 
         else return 0.0*monto;
@@ -129,58 +127,53 @@ public class PagoService {
     public Double variacionGrasa(ProveedorEntity proveedor){
 
         Integer numero= pagoRepository.obtenerCantPagos(proveedor.getCodigo());
-        PagoEntity anterior;
-        PagoEntity actual;
-        
-        if (numero==1){
+        List<PagoEntity> anterior;
 
-            actual= pagoRepository.obtenerPagoActual(proveedor.getCodigo());
-            return  (0/ actual.getGrasa())*100;
-        }
-        else{
-            actual= pagoRepository.obtenerPagoActual(proveedor.getCodigo());
-            anterior= pagoRepository.obtenerPagoAnterior(actual.getId_pago());
-            return (anterior.getGrasa()/ actual.getGrasa())*100;}
-    }
-        
-        
+        PagoEntity actual = pagoRepository.obtenerPagoActual(proveedor.getCodigo());
+
+        anterior= pagoRepository.obtenerPagoAnterior(proveedor.getCodigo(),actual.getId_pago());
+        if (anterior.size()==0){return 0.0;
+        } else {
+            return (anterior.get(0).getGrasa()- actual.getGrasa())/anterior.get(0).getGrasa();
+    }}
+
+
     public Double variacionNegativaGrasa(Double variacion_grasa, Double monto)
     {
-        if (variacion_grasa<= 0  && variacion_grasa<=15)
+        if (variacion_grasa>= 0  && variacion_grasa<=15)
         {return 0.0*monto;}
-        else if (variacion_grasa<= 16  && variacion_grasa<=25)
+        else if (variacion_grasa>= 16  && variacion_grasa<=25)
         {return 0.0*monto;}
-        else if (variacion_grasa<= 26  && variacion_grasa<=40)
+        else if (variacion_grasa>= 26  && variacion_grasa<=40)
         {return 20.0*monto;}
-        else if (variacion_grasa<= 41 )
+        else if (variacion_grasa>= 41 )
         {return 30.0*monto;}
         else return 0.0*monto;
     }
 
     public Double variacionST(ProveedorEntity proveedor){
-        
-        Integer numero= pagoRepository.obtenerCantPagos(proveedor.getCodigo());
-        PagoEntity anterior;
-        PagoEntity actual;
 
-        if (numero==1){
-            actual= pagoRepository.obtenerPagoActual(proveedor.getCodigo());
-            return  (0/ actual.getSolidos_totales())*100;
-        }
-        else{
-            actual= pagoRepository.obtenerPagoActual(proveedor.getCodigo());
-            anterior= pagoRepository.obtenerPagoAnterior(actual.getId_pago());
-            return (anterior.getSolidos_totales()/ actual.getSolidos_totales())*100;}
-    }
+        Integer numero= pagoRepository.obtenerCantPagos(proveedor.getCodigo());
+        List<PagoEntity> anterior;
+
+        PagoEntity actual = pagoRepository.obtenerPagoActual(proveedor.getCodigo());
+
+
+        anterior= pagoRepository.obtenerPagoAnterior(proveedor.getCodigo(),actual.getId_pago());
+        if (anterior.size()==0){return 0.0;
+
+        } else {
+            return ((anterior.get(0).getSolidos_totales()- actual.getSolidos_totales())/anterior.get(0).getSolidos_totales());
+        }}
     public Double variacionNegativaST(Double variacion_st, Double monto)
     {
-        if (variacion_st<= 0  && variacion_st<=6){
+        if (variacion_st >= 0  && variacion_st<=6){
             return 0.0*monto;}
-        else if (variacion_st<= 7  && variacion_st<=12)
+        else if (variacion_st >= 7  && variacion_st<=12)
         {return 18.0*monto;}
-        else if (variacion_st<= 13  && variacion_st<=35)
+        else if (variacion_st >= 13  && variacion_st<=35)
         {return 27.0*monto;}
-        else if (variacion_st<= 36)
+        else if (variacion_st >= 36)
         {return 45.0*monto;}
         else return 0.0*monto;}
 
@@ -188,6 +181,7 @@ public class PagoService {
         return acopioRepository.totalDiasEnviados(proveedor.getCodigo());
     }
 
+    @Generated
     public boolean pagototal()
     {   List<ProveedorEntity> proveedores= proveedorService.obtenerProveedores();
         for  (int i = 0; i<proveedores.size(); i++){
@@ -199,21 +193,23 @@ public class PagoService {
             pago.setPago_solido(pagoporsolido(pago.getTotal_kls_leche(),pago.getSolidos_totales()));
             pago.setNro_dias_leche(cantDiasEnviados(proveedor));
             pago.setPromedio_diario_leche(pago.getTotal_kls_leche()/pago.getNro_dias_leche());
-            pago.setFrecuencia(bonoFrecuencia(proveedor,pago.getTotal_kls_leche()));
-            pago.setVariacion_grasa(variacionGrasa(proveedor));
-            pago.setDcto_variacion_grasa(variacionNegativaGrasa(pago.getVariacion_grasa(),pago.getPago_leche()));
-            pago.setVariacion_leche(variacionLeche(proveedor));
-            pago.setDcto_variacion_leche(variacionNegativaLeche(pago.getVariacion_leche(),pago.getPago_leche()));
-            pago.setVariacion_solidos_totales(variacionST(proveedor));
-            pago.setDcto_variacion_solidos_totales(variacionNegativaST(pago.getVariacion_solidos_totales(),pago.getPago_leche()));
+            pago.setFrecuencia(bonoFrecuencia(proveedor,pago.getPago_leche()));
             Double pago_acopio = pago.getPago_leche() + pago.getPago_grasa() + pago.getPago_solido()+pago.getFrecuencia();
+            pago.setVariacion_grasa(variacionGrasa(proveedor));
+            pago.setDcto_variacion_grasa(variacionNegativaGrasa(pago.getVariacion_grasa(),pago_acopio));
+            pago.setVariacion_leche(variacionLeche(proveedor));
+            pago.setDcto_variacion_leche(variacionNegativaLeche(pago.getVariacion_leche(),pago_acopio));
+            pago.setVariacion_solidos_totales(variacionST(proveedor));
+            pago.setDcto_variacion_solidos_totales(variacionNegativaST(pago.getVariacion_solidos_totales(),pago_acopio));
             Double descuentos = pago.getDcto_variacion_grasa()+pago.getDcto_variacion_leche()+pago.getDcto_variacion_solidos_totales();
             pago.setPago_total(pago_acopio-descuentos);
             pago.setMonto_retencion(retencion(pago.getPago_total()));
             pago.setMonto_final(pago.getPago_total() -pago.getMonto_retencion());
-            guardarData(pago);}
+            pagoRepository.save(pago);}
             return  true;}
 
+
+    @Generated
     public  PagoEntity iniciarpago(ProveedorEntity proveedor) {
 
         PagoEntity pago = new PagoEntity();
@@ -224,13 +220,11 @@ public class PagoService {
         pago.setNombre_proveedor(proveedor.getNombre());
         LocalDate fechaActual = LocalDate.now();
         pago.setQuincena(fechaActual) ;
-        //COMPARAR ESTE PAGO CON EL ÚLTIMO EN LA BASE DE DATOS SI ES IGUAL, EN CASO DE QUE NO TIRE ERROR O ALGO ASI QUE NOTIFIQUE
-        guardarData(pago);
+        pagoRepository.save(pago);
         return  pago;
     }
 
-    public void guardarData(PagoEntity data){
-        pagoRepository.save(data);
-    }
+
+
 }
 
