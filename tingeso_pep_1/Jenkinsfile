@@ -7,28 +7,28 @@ pipeline{
         stage("Build JAR File"){
             steps{
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github_jenkins', url: 'https://github.com/D4ig0/Tingeso-pep-1']])
-                    sh "mvn clean install"
+                    bat "mvn clean install"
                 }
             }
 
         stage("Test"){
             steps{
                 dir("tingeso_pep_1"){
-                    sh "mvn test"
+                    bat "mvn test"
                 }
             }
         }
         stage("SonarQube Analysis"){
             steps{
                 dir("tingeso_pep_1"){
-                    sh "mvn clean verify sonar:sonar -Dsonar.projectKey=pep-tingeso-1 -Dsonar.host.url=http://localhost:9000/ -Dsonar.login=sqp_ec5140d5a4652c274fb215cef0d0d5446ceb43ed"
+                    bat "mvn clean verify sonar:sonar -Dsonar.projectKey=pep-tingeso-1 -Dsonar.host.url=http://localhost:9000/ -Dsonar.login=sqp_ec5140d5a4652c274fb215cef0d0d5446ceb43ed"
                 }
             }
         }
         stage("Build Docker Image"){
             steps{
                 dir("tingeso_pep_1"){
-                    sh "docker build -t d4ig0/tingeso_pep_1 ."
+                    bat "docker build -t d4ig0/tingeso_pep_1 ."
                 }
 
             }
@@ -37,10 +37,10 @@ pipeline{
             steps{
                 dir("tingeso_pep_1"){
                    withCredentials([string(credentialsId: 'dckrhubpassword', variable: 'dckpass')]) {
-                        sh "docker login -u d4ig0 -p ${dckpass}"
+                        bat "docker login -u d4ig0 -p ${dckpass}"
 
                     }
-                    sh "docker push d4ig0/tingeso_pep_1r"
+                    bat "docker push d4ig0/tingeso_pep_1r"
 
                 }
 
@@ -51,7 +51,7 @@ pipeline{
     post{
         always{
             dir("tingeso_pep_1"){
-                sh "docker logout"
+                bat "docker logout"
             }
         }
     }
