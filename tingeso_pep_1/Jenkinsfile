@@ -7,6 +7,7 @@ pipeline{
         stage("Build JAR File"){
             steps{
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github_jenkins', url: 'https://github.com/D4ig0/Tingeso-pep-1']])
+                    bat "cd tingeso_pep_1"
                     bat "mvn clean install"
                 }
             }
