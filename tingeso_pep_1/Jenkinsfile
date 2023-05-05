@@ -10,7 +10,7 @@ pipeline{
                     bat "mvn clean install"
                 }
             }
-        }
+
         stage("Test"){
             steps{
                 dir("tingeso_pep_1"){
@@ -46,6 +46,7 @@ pipeline{
 
             }
         }
+    }
 
     post{
         always{
