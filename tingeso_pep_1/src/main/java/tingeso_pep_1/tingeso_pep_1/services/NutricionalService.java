@@ -6,10 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import tingeso_pep_1.tingeso_pep_1.entities.AcopioEntity;
 import tingeso_pep_1.tingeso_pep_1.entities.NutricionalEntity;
-import tingeso_pep_1.tingeso_pep_1.entities.ProveedorEntity;
-import tingeso_pep_1.tingeso_pep_1.repositories.AcopioRepository;
 import tingeso_pep_1.tingeso_pep_1.repositories.NutricionalRepository;
 
 import java.io.BufferedReader;

@@ -23,7 +23,7 @@ public interface PagoRepository extends JpaRepository<PagoEntity, Integer> {
     @Query("SELECT e FROM PagoEntity e WHERE e.id_pago = :numero AND e.codigo_proveedor= :codigo")
     PagoEntity obtenerPagoAnteriorByID(@Param("numero") Long numero, @Param("codigo") String codigo);
 
-    
+
     @Query("SELECT p FROM PagoEntity p WHERE p.codigo_proveedor = :codigo AND p.id_pago < :idPagoActual ORDER BY p.id_pago DESC LIMIT 1")
     List<PagoEntity> obtenerPagoAnterior(@Param("codigo") String codigo, @Param("idPagoActual") Integer idPagoActual);
 

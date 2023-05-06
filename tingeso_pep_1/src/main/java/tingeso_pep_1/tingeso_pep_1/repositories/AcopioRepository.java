@@ -24,10 +24,11 @@ public interface AcopioRepository extends JpaRepository <AcopioEntity, Integer>{
     @Query("select a from AcopioEntity a where a.proveedor =: proveedor")
     List<AcopioEntity> obtenerAcopios(@Param("proveedor") String  proveedor);
 
-    @Query("select count(a) from AcopioEntity  a where a.proveedor =:proveedor and a.turno= 'M' ")
+    @Query("SELECT COUNT(a) FROM AcopioEntity a WHERE a.proveedor = :proveedor AND LOWER(a.turno) = LOWER('M')")
     Integer cantidadTurnoM(@Param("proveedor") String proveedor);
 
-    @Query("select count(a) from AcopioEntity  a where a.proveedor =:proveedor and a.turno= 'T' ")
+
+    @Query("SELECT COUNT(a) FROM AcopioEntity a WHERE a.proveedor = :proveedor AND LOWER(a.turno) = LOWER('T')")
     Integer cantidadTurnoT(@Param("proveedor") String proveedor);
 
     @Query("SELECT SUM(CAST(a.kls_leche AS double)) FROM AcopioEntity a WHERE a.proveedor = :proveedor")

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 @Repository
 public interface NutricionalRepository extends JpaRepository<NutricionalEntity, Integer> {
 
+
     @Query("select a from NutricionalEntity a")
     ArrayList<NutricionalEntity> findAll();
 

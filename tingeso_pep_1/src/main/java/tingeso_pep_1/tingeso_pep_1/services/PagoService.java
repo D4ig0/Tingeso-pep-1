@@ -8,8 +8,6 @@ import tingeso_pep_1.tingeso_pep_1.entities.*;
 import tingeso_pep_1.tingeso_pep_1.repositories.*;
 
 import java.time.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,9 +16,9 @@ public class PagoService {
     private static final Double categoria_b = 550.0;
     private static final Double categoria_c = 400.0;
     private static final Double categoria_d = 250.0;
-    private static final Double bonificacion_MT = 20.0;
-    private static final Double bonificacion_M = 12.0;
-    private static final Double bonificacion_T = 8.0;
+    private static final Double bonificacion_MT = 0.2;
+    private static final Double bonificacion_M = 0.12;
+    private static final Double bonificacion_T = 0.08;
 
 
 
@@ -79,7 +77,9 @@ public class PagoService {
     public Double bonoFrecuencia(ProveedorEntity proveedor,Double pagoLeche){
 
         Integer turno_m = acopioRepository.cantidadTurnoM(proveedor.getCodigo());
+
         Integer turno_t = acopioRepository.cantidadTurnoT(proveedor.getCodigo());
+
         if (turno_t>10 && turno_m >10){
             return bonificacion_MT * pagoLeche;}
         else if (turno_m>10){
@@ -102,7 +102,7 @@ public class PagoService {
         List<PagoEntity> anterior;
         PagoEntity actual = pagoRepository.obtenerPagoActual(proveedor.getCodigo());
         anterior= pagoRepository.obtenerPagoAnterior(proveedor.getCodigo(),actual.getId_pago());
-        if (anterior.size()==0){return 0.0;
+        if (anterior.isEmpty()){return 0.0;
 
         } else {
             return (((anterior.get(0).getTotal_kls_leche()- actual.getTotal_kls_leche())/anterior.get(0).getTotal_kls_leche()));
@@ -114,11 +114,11 @@ public class PagoService {
         if (variacion_leche>= 0  && variacion_leche<=8)
         {return 0.0*monto;}
         else if (variacion_leche>= 9  && variacion_leche<=25)
-        {return 7.0*monto;}
+        {return 0.07*monto;}
         else if (variacion_leche>= 26  && variacion_leche<=45)
-        {return 15.0*monto;}
+        {return 0.15*monto;}
         else if (variacion_leche>= 45 )
-        {return 30.0*monto;}
+        {return 0.3*monto;}
 
         else return 0.0*monto;
     }
@@ -132,7 +132,7 @@ public class PagoService {
         PagoEntity actual = pagoRepository.obtenerPagoActual(proveedor.getCodigo());
 
         anterior= pagoRepository.obtenerPagoAnterior(proveedor.getCodigo(),actual.getId_pago());
-        if (anterior.size()==0){return 0.0;
+        if (anterior.isEmpty()){return 0.0;
         } else {
             return (anterior.get(0).getGrasa()- actual.getGrasa())/anterior.get(0).getGrasa();
     }}
@@ -143,11 +143,11 @@ public class PagoService {
         if (variacion_grasa>= 0  && variacion_grasa<=15)
         {return 0.0*monto;}
         else if (variacion_grasa>= 16  && variacion_grasa<=25)
-        {return 0.0*monto;}
+        {return 0.12*monto;}
         else if (variacion_grasa>= 26  && variacion_grasa<=40)
-        {return 20.0*monto;}
+        {return 0.2*monto;}
         else if (variacion_grasa>= 41 )
-        {return 30.0*monto;}
+        {return 0.3*monto;}
         else return 0.0*monto;
     }
 
@@ -160,7 +160,7 @@ public class PagoService {
 
 
         anterior= pagoRepository.obtenerPagoAnterior(proveedor.getCodigo(),actual.getId_pago());
-        if (anterior.size()==0){return 0.0;
+        if (anterior.isEmpty()){return 0.0;
 
         } else {
             return ((anterior.get(0).getSolidos_totales()- actual.getSolidos_totales())/anterior.get(0).getSolidos_totales());
@@ -170,11 +170,11 @@ public class PagoService {
         if (variacion_st >= 0  && variacion_st<=6){
             return 0.0*monto;}
         else if (variacion_st >= 7  && variacion_st<=12)
-        {return 18.0*monto;}
+        {return 0.18*monto;}
         else if (variacion_st >= 13  && variacion_st<=35)
-        {return 27.0*monto;}
+        {return 0.27*monto;}
         else if (variacion_st >= 36)
-        {return 45.0*monto;}
+        {return 0.45*monto;}
         else return 0.0*monto;}
 
     public Integer cantDiasEnviados(ProveedorEntity proveedor){
@@ -186,7 +186,6 @@ public class PagoService {
     {   List<ProveedorEntity> proveedores= proveedorService.obtenerProveedores();
         for  (int i = 0; i<proveedores.size(); i++){
             ProveedorEntity proveedor = proveedores.get(i);
-            //VER SI LAS LISTAS DE ACOPIO SON DISTINTAS
             PagoEntity pago = iniciarpago(proveedor);
             pago.setPago_leche(pagoporleche(pago.getTotal_kls_leche(),proveedor.getCategoria()));
             pago.setPago_grasa(pagoporgrasa(pago.getTotal_kls_leche(),pago.getGrasa()));
@@ -223,8 +222,5 @@ public class PagoService {
         pagoRepository.save(pago);
         return  pago;
     }
-
-
-
 }
 
