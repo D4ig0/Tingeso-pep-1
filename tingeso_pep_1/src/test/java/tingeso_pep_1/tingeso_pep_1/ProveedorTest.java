@@ -39,13 +39,13 @@ public class ProveedorTest {
     }
     @Test
     void testobtenerProveedores(){
-
+        proveedorRepository.deleteAll();
         ProveedorEntity proveedor1 = new ProveedorEntity();
         String codigo = "001";
         String nombre = "Proveedor A";
         String categoria = "B";
         String retencion = "Si";
-        proveedor1.setId_proveedor(1);
+        proveedor1.setId_proveedor(9);
         proveedor1.setCodigo(codigo);
         proveedor1.setNombre(nombre);
         proveedor1.setCategoria(categoria);
@@ -56,7 +56,7 @@ public class ProveedorTest {
         String nombre2 = "Proveedor N";
         String categoria2 = "A";
         String retencion2 = "Si";
-        proveedor2.setId_proveedor(2);
+        proveedor2.setId_proveedor(10);
         proveedor2.setCodigo(codigo2);
         proveedor2.setNombre(nombre2);
         proveedor2.setCategoria(categoria2);

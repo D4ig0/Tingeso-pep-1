@@ -52,16 +52,18 @@ class PagoTest {
     @Test
     void testObtenerPagos() {
         // Arrange
+        pagoRepository.deleteAll();
         PagoEntity pago1 = new PagoEntity();
-
         PagoEntity pago2 = new PagoEntity();
         // Guardar los pagos en la base de datos utilizando el repositorio
-        pagoRepository.saveAll(Arrays.asList(pago1, pago2));
-
+        pagoRepository.save(pago1);
+        pagoRepository.save(pago2);
         // Act
-        List<PagoEntity> pagosObtenidos = pagoService.obtenerPagos();
+        ArrayList<PagoEntity> pagos = new ArrayList<PagoEntity>();
+        pagos.add(pago1);
+        pagos.add(pago2);
         // Assert
-        assertEquals(2, pagosObtenidos.size());
+        assertEquals(pagos,pagoService.obtenerPagos());
     }
     @Test
     public void testPagoporleche1() {
@@ -315,6 +317,7 @@ class PagoTest {
         assertEquals(expected, result, 0.0);
     }
 
+
     @Test
     public void testVariacionNegativaLeche1(){
         double result = pagoService.variacionNegativaLeche(13.0,50000.0);
@@ -331,6 +334,19 @@ class PagoTest {
     public void testVariacionNegativaLeche3(){
         double result = pagoService.variacionNegativaLeche(46.0,50000.0);
         double expected = 15000;
+        assertEquals(expected, result, 0.1);
+    }
+
+    @Test
+    public void testVariacionNegativaLeche4(){
+        double result = pagoService.variacionNegativaLeche(5.0,50000.0);
+        double expected = 0;
+        assertEquals(expected, result, 0.1);
+    }
+    @Test
+    public void testVariacionNegativaLeche5(){
+        double result = pagoService.variacionNegativaLeche(-5.0,50000.0);
+        double expected = 0;
         assertEquals(expected, result, 0.1);
     }
 
@@ -361,7 +377,11 @@ class PagoTest {
         double expected = 15000;
         assertEquals(expected, result, 0.1);
     }
-
+    @Test
+    public void testVariacionNegativaGrasa5(){
+        double result = pagoService.variacionNegativaGrasa(-42.0,50000.0);
+        double expected = 0;
+        assertEquals(expected, result, 0.1);}
     @Test
     public void testVariacionNegativaS1T(){
         double result = pagoService.variacionNegativaST(5.0,50000.0);
@@ -384,6 +404,13 @@ class PagoTest {
     public void testVariacionNegativaST4(){
         double result = pagoService.variacionNegativaST(36.0,50000.0);
         double expected = 22500;
+        assertEquals(expected, result, 0.1);
+    }
+
+    @Test
+    public void testVariacionNegativaST5(){
+        double result = pagoService.variacionNegativaST(-36.0,50000.0);
+        double expected = 0;
         assertEquals(expected, result, 0.1);
     }
 
