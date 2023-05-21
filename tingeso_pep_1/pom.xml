@@ -19,6 +19,8 @@
 			src/main/java/tingeso_pep_1/tingeso_pep_1/entities/*,
 			src/main/java/tingeso_pep_1/tingeso_pep_1/controllers/*,
 			src/main/java/tingeso_pep_1/tingeso_pep_1/repositories/*
+			src/main/java/tingeso_pep_1/tingeso_pep_1/TingesoPep1Application.java
+
 	</sonar.exclusions>
     </properties>
     <dependencies>

@@ -58,7 +58,7 @@
     }
     /* Change styles for span on extra small screens */
     .header{
-      background-color: #1b3039;
+      background: rgba(7, 142, 147, 0.82);
       display: flex;
       justify-content: flex-end;
       align-items: center;
@@ -68,7 +68,7 @@
     .header .logo{
       margin-right: auto;
       color: white;
-      font-family: 'Pacifico',serif;
+      font-family: "Arial Black",serif;
     }
     .header .btn button{
       margin-left: 20px;
@@ -96,6 +96,7 @@
   <nav>
   </nav>
   <a class="btn" href="/"><button>Volver al menú principal</button></a>
+  <a class="btn" href="/vendorList"><button>Regresar a proveedores</button></a>
 </header>
 <div class = "mainclass">
   <form  th:action="@{/nuevo-proveedor}" method="POST">

@@ -13,6 +13,7 @@ services:
       - app2
       - app3
   postgres-db:
+<<<<<<< Updated upstream
       image: postgres
       restart: always
       volumes:
@@ -23,6 +24,18 @@ services:
         POSTGRES_DB: tingeso_pep1
       ports:
         - "5432:5432"
+=======
+    image: postgres
+    restart: always
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: tingeso_pep1
+    ports:
+      - "5432:5432"
+>>>>>>> Stashed changes
   app1:
     container_name: tingeso_pep_1_1
     image: d4ig0/tingeso_pep_1

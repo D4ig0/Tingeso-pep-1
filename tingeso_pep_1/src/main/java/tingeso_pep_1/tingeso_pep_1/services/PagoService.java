@@ -88,9 +88,9 @@ public class PagoService {
             return bonificacion_T * pagoLeche;}
         else  return 0.0 ;}
 
-    public double retencion(Double monto){
+    public double retencion(Double monto, ProveedorEntity proveedor){
 
-        if (monto>950000)
+        if (monto>950000 && proveedor.getRetencion()=="Si")
         {return monto*0.13;}
 
         else return 0;
@@ -202,7 +202,7 @@ public class PagoService {
             pago.setDcto_variacion_solidos_totales(variacionNegativaST(pago.getVariacion_solidos_totales(),pago_acopio));
             Double descuentos = pago.getDcto_variacion_grasa()+pago.getDcto_variacion_leche()+pago.getDcto_variacion_solidos_totales();
             pago.setPago_total(pago_acopio-descuentos);
-            pago.setMonto_retencion(retencion(pago.getPago_total()));
+            pago.setMonto_retencion(retencion(pago.getPago_total(), proveedor));
             pago.setMonto_final(pago.getPago_total() -pago.getMonto_retencion());
             pagoRepository.save(pago);}
             return  true;}

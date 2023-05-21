@@ -170,15 +170,25 @@ class PagoTest {
     }
     @Test
     public void testRetencion(){
+        ProveedorEntity proveedor = new ProveedorEntity();
+        proveedor.setCategoria("A");
+        proveedor.setCodigo("1003");
+        proveedor.setRetencion("Si");
+        proveedor.setNombre("ejemplo1");
         double monto= 960000.0;
-        double result = pagoService.retencion(monto);
+        double result = pagoService.retencion(monto,proveedor);
         double expected = 124800;
         assertEquals(expected, result, 0.0);
 
     }   @Test
     public void testRetencion2(){
+        ProveedorEntity proveedor = new ProveedorEntity();
+        proveedor.setCategoria("A");
+        proveedor.setCodigo("1004");
+        proveedor.setRetencion("No");
+        proveedor.setNombre("ejemplo1");
         double monto= 940000.0;
-        double result = pagoService.retencion(monto);
+        double result = pagoService.retencion(monto,proveedor);
         double expected = 0;
         assertEquals(expected, result, 0.0);
 

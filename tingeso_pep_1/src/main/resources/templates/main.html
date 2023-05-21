@@ -24,46 +24,20 @@
             justify-content: center;
             width: 300px;
             height: auto;
-            border-radius: 4px;
+            border-radius: 5%;
             background-color: #fff;
             text-align: center;
             margin: 20px;
             padding: 20px;
-            transition: .3s
+            cursor: pointer;
+            transition: all 0.3s ease 0s;
         }
 
-        .img-area{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 75px;
-            height: 75px;
-            border: 6px solid #ddd;
-            border-radius: 50%;
-            padding: 20px;
-            background-repeat: no-repeat;
-            -webkit-background-size: cover;
-            background-size: cover;
-            background-position: center center;
-        }
+        .single-box:hover{
+            background-color: #fadd90;
+            transform: scale(1.1);}
 
 
-
-        .single-box:nth-child(1) .img-area {
-            background-image: url(https://img.freepik.com/vector-premium/chat-archivo-documento-texto-comentando-o-editando-documentos-linea-ilustracion-dibujos-animados-plana_101884-838.jpg)
-        }
-        .single-box:nth-child(2) .img-area {
-            background-image: url(http://static1.squarespace.com/static/55c7a3e2e4b0fa365689d8aa/55e0aceae4b0643202e59629/55e322ade4b077beb0266329/1590769127854/?format=1500w)
-        }
-        .single-box:nth-child(3) .img-area {
-            background-image: url(https://img.freepik.com/vector-gratis/ingresos-netos-calculando-ilustracion-concepto-abstracto-calculo-sueldos-formula-ingresos-netos-salario-neto-contabilidad-corporativa-calculo-ganancias-estimacion-ganancias_335657-1238.jpg?w=2000)
-        }
-        .single-box:nth-child(4) .img-area {
-            background-image: url(https://previews.123rf.com/images/magurok/magurok1606/magurok160600092/60046224-lado-la-celebraci%C3%B3n-de-solicitud-de-trabajo-aprobado-aprobado-cv-con-el-sello-la-l%C3%ADnea-delgada-plana.jpg)
-        }
-        .single-box:nth-child(5) .img-area {
-            background-image: url(https://media.istockphoto.com/vectors/agreement-contract-and-offer-color-line-icon-proposal-linear-vector-vector-id1271477227?k=20&m=1271477227&s=612x612&w=0&h=XOSF2ISnfGJZ7bb-fU7rRdDJzTKehDmOF9kcJ5gIEmA=)
-        }
         .header-text{
             font-size: 24px;
             font-weight: 500;
@@ -74,67 +48,57 @@
             font-weight: 400;
             line-height: 30px;
         }
-        .single-box:hover{
-            background: #e84393;
-            color: #fff;}
     </style>
 </head>
 <body>
-<h1 align = center style="color: white"> <b1>MilkStgo </b1></h1>
+<h1 align = center style="color: white; font-family: 'Arial Black';"> <b1>MilkStgo </b1></h1>
 <div class = "box-area">
 
-    <div class = "single-box">
-        <a href = "/fileUpload">
-            <div class = "img-area">
-            </div>
-        </a>
+
+
+    <div class = "single-box" onclick=" location.href='/fileUpload'">
+
         <div class = "img-text">
-            <span class = "header-text"><strong>Cargar proveedores mediante CSV</strong></span>
+            <span class = "header-text"><strong> Cargar proveedores mediante CSV</strong></span>
         </div>
     </div>
 
-    <div class = "single-box">
-        <a href = "/vendorList">
-            <div class = "img-area">
-            </div>
-        </a>
+    <div class = "single-box" onclick=" location.href='/vendorList'">
+
         <div class = "img-text">
-            <span class = "header-text"><strong> Ver  <br> Proveedores </strong></span>
+            <span class = "header-text"><strong> Ver  <br> Proveedores</strong></span>
         </div>
     </div>
 
-    <div class = "single-box">
-        <a href = "/fileUploadNutricional">
-            <div class = "img-area">
-                </div>
-        </a>
-    <div class = "img-text">
-        <span class = "header-text"><strong>Cargar información nutricional</strong></span>
-    </div>
+
+
+    <div class = "single-box" onclick=" location.href='/fileUploadNutricional'">
+
+        <div class = "img-text">
+            <span class = "header-text"><strong> Cargar información nutricional</strong></span>
+        </div>
     </div>
 
-    <div class = "single-box">
-        <a href = "/view_spreadsheet">
-            <div class = "img-area">
-            </div>
-        </a>
+
+    <div class = "single-box" onclick=" location.href='/view_spreadsheet'">
+
         <div class = "img-text">
             <span class = "header-text"><strong> Visualizar planilla por pantalla</strong></span>
         </div>
     </div>
 
-    <div class = "single-box">
-        <a href = "/successful_spreadsheet">
-            <div class = "img-area">
-            </div>
-        </a>
+    <div class = "single-box" onclick=" location.href='/successful_spreadsheet'">
+
         <div class = "img-text">
             <span class = "header-text"><strong> Calcular <br> planilla de pagos</strong></span>
         </div>
     </div>
 
 
+
 </div>
-<h6 align = center style="color: white"> MilkSantiago 2023</h6>
+<div style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: black;">
+    <h5 align="center" style="color: white; margin: 2%;">MilkSantiago 2023</h5>
+</div>
 </body>
 </html>

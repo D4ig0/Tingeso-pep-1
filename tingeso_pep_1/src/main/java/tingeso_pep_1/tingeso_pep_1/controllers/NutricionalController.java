@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import tingeso_pep_1.tingeso_pep_1.services.AcopioService;
+import org.springframework.ui.Model;
+import tingeso_pep_1.tingeso_pep_1.entities.NutricionalEntity;
 import tingeso_pep_1.tingeso_pep_1.services.NutricionalService;
+
+import java.util.List;
 
 
 @Controller
@@ -31,4 +34,5 @@ public class NutricionalController {
             nutricionalService.leerCsv("Nutricional.csv");
         return "redirect:/fileUploadNutricional";
     }
+
 }

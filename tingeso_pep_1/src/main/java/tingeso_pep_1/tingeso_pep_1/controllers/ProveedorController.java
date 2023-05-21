@@ -39,4 +39,10 @@ public class ProveedorController {
         proveedorService.guardarProveedor(codigo, nombre, categoria, retencion);
         return "redirect:/nuevo-proveedor";
     }
+
+    @GetMapping("/eliminar_proveedores")
+    public String eliminar() {
+        proveedorService.eliminarProveedores();
+        return "redirect:/vendorList";
+    }
 }
