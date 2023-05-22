@@ -90,12 +90,12 @@ public class PagoService {
             return bonificacion_T * pagoLeche;}
         else  return 0.0 ;}
 
-    public double retencion(Double monto, ProveedorEntity proveedor){
-
-        if (monto>950000 && proveedor.equals("Si"))
-        {return monto*0.13;}
-
-        else return 0;
+    public double retencion(Double monto, ProveedorEntity proveedor) {
+        if (monto > 950000 && proveedor.getRetencion().equals("Si")) {
+            return monto * 0.13;
+        } else {
+            return 0;
+        }
     }
 
     public Double variacionLeche(ProveedorEntity proveedor)
