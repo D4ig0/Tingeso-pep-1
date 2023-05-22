@@ -39,6 +39,8 @@ public class PagoService {
 
     @Autowired
     ProveedorService proveedorService;
+    @Autowired
+    ProveedorRepository proveedorRepository;
 
 
 
@@ -90,7 +92,7 @@ public class PagoService {
 
     public double retencion(Double monto, ProveedorEntity proveedor){
 
-        if (monto>950000 && proveedor.getRetencion()=="Si")
+        if (monto>950000 && proveedor.equals("Si"))
         {return monto*0.13;}
 
         else return 0;
@@ -221,6 +223,9 @@ public class PagoService {
         pago.setQuincena(fechaActual) ;
         pagoRepository.save(pago);
         return  pago;
+    }
+    public void eliminarRelacionadoPagos(){
+        pagoRepository.deleteAll();
     }
 }
 

@@ -39,7 +39,11 @@ public class  PagoController {
         return "view_spreadsheet"; }
 
 
-
+    @GetMapping("/eliminar_pagos")
+    public String eliminar() {
+        pagoService.eliminarRelacionadoPagos();
+        return "redirect:/view_spreadsheet";
+    }
 
 }
 
