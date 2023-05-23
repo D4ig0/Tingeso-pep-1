@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Calculo de pagos</title>
 </head>
 <body>
 <title>Agregar Proveedor</title>
@@ -15,10 +15,20 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 <div class="container">
+    <style>
+        .message{
+            display: grid;
+            height: 70vh;
+            place-items: center;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
     <br>
+    <div class="message">
     <v-if th:if="${ejecucion == true}">
         <div class="alert alert-success" role="alert">
-           ¡Ha sido un Éxito!
+           ¡Ha sido un Éxito! <br>
             Se ha obtenido la planilla de pagos para los proveedores
         </div>
     </v-if>
@@ -28,10 +38,10 @@
             No se ha podido obtener la planilla de pagos para los proveedores
         </div>
     </v-else>
+
+
+    <a href="/" class="btn btn-secondary" role="button">Volver al menú principal</a>
 </div>
-<br>
-<div class="d-flex justify-content-center">
-    <a href="/" class="btn btn-secondary" role="button">Ir a Inicio</a>
 </div>
 </body>
 

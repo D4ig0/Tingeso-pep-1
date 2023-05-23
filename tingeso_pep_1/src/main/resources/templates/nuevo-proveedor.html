@@ -56,6 +56,11 @@
       padding-top: 0;
       padding-right: 15px;
     }
+    .select{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
     /* Change styles for span on extra small screens */
     .header{
       background: rgba(7, 142, 147, 0.82);
@@ -110,12 +115,22 @@
         <label><strong>Nombre</strong></label>
         <input type="text" id = "nombre"
                placeholder="Ingrese el nombre del proveedor" name="nombre" required>
-        <label><strong>Categoría</strong></label>
-        <input type="text" id = "categoria"
-               placeholder="Ingrese la categoria del proveedor" name="categoria" required>
+        <div class="select"></div>
+        </div>
+      <div class="select">
+        <label ><strong>Categoría</strong></label>
+        <select name="categoria" id="categoria">
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+          <option value="D">D</option>
+          <option value="Otra">  Otra</option>
+        </select>
         <label><strong>Retención</strong></label>
-        <input type="text" id = "fecha"
-               placeholder="Ingrese retención del proveedor (Si / No)" name="retencion" required>
+          <select name="retencion" id="retencion">
+            <option value="Si">Si</option>
+            <option value="No">No</option>
+          </select>
       </div>
       <button type="submit">Registrar Proveedor</button>
     </div>
